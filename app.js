@@ -16,11 +16,15 @@ let eraseSize = Number(eraser.value);
 let lastX = 0;
 let lastY = 0;
 
+// --- 손떨림 방지용 스무딩 변수 ---
+let smoothX = 0;
+let smoothY = 0;
+const smoothFactor = 0.2; // 값이 낮을수록 더 부드러움(0.15~0.25 추천)
+
 // 지우개 크기 조절
 eraser.addEventListener("input", () => {
   eraseSize = Number(eraser.value);
 });
-
 
 // ------------ 마우스 이벤트 ------------
 canvas.addEventListener("mousedown", start);
@@ -30,7 +34,6 @@ canvas.addEventListener("mousemove", draw);
 function start(e) {
   drawing = true;
 
-  // 부드러운 지우개 설정
   ctx.globalCompositeOperation = "destination-out";
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
@@ -38,6 +41,10 @@ function start(e) {
 
   lastX = e.clientX;
   lastY = e.clientY;
+
+  // 스무딩 초기화
+  smoothX = lastX;
+  smoothY = lastY;
 }
 
 function draw(e) {
@@ -46,13 +53,17 @@ function draw(e) {
   const x = e.clientX;
   const y = e.clientY;
 
+  // 좌표 스무딩(손떨림 방지)
+  smoothX = smoothX + (x - smoothX) * smoothFactor;
+  smoothY = smoothY + (y - smoothY) * smoothFactor;
+
   ctx.beginPath();
   ctx.moveTo(lastX, lastY);
-  ctx.lineTo(x, y);
+  ctx.lineTo(smoothX, smoothY);
   ctx.stroke();
 
-  lastX = x;
-  lastY = y;
+  lastX = smoothX;
+  lastY = smoothY;
 }
 
 function end() {
