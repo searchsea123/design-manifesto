@@ -36,3 +36,8 @@ html, body{
   border-radius: 10px;
   font-size: 14px;
 }
+
+#eraser-label {
+  position: relative;
+  top: -3pt;
+}
