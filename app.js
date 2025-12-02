@@ -13,62 +13,53 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 let drawing = false;
 let eraseSize = Number(eraser.value);
 
+let lastX = 0;
+let lastY = 0;
+
 // 지우개 크기 조절
-eraser.addEventListener("input",()=>{
+eraser.addEventListener("input", () => {
   eraseSize = Number(eraser.value);
 });
 
 
-// -------------마우스 이벤트-------------
+// ------------ 마우스 이벤트 ------------
 canvas.addEventListener("mousedown", start);
 canvas.addEventListener("mouseup", end);
 canvas.addEventListener("mousemove", draw);
 
-function start(e){
+function start(e) {
   drawing = true;
 
+  // 부드러운 지우개 설정
   ctx.globalCompositeOperation = "destination-out";
-  ctx.lineWidth = eraseSize * 2;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
+  ctx.lineWidth = eraseSize;
 
-  ctx.beginPath();
-  ctx.moveTo(e.clientX, e.clientY);
+  lastX = e.clientX;
+  lastY = e.clientY;
 }
 
-function draw(e){
+function draw(e) {
   if (!drawing) return;
 
-  ctx.lineTo(e.clientX, e.clientY);
+  const x = e.clientX;
+  const y = e.clientY;
+
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(x, y);
   ctx.stroke();
+
+  lastX = x;
+  lastY = y;
 }
 
-function end(){
+function end() {
   drawing = false;
   ctx.beginPath();
 }
 
-
-// ------------------------------------
-//           터치 이벤트
-// ------------------------------------
-canvas.addEventListener("touchstart", startTouch);
-canvas.addEventListener("touchend", end);
-canvas.addEventListener("touchmove", drawTouch);
-
-function startTouch(e){
-  drawing = true;
-
-  const t = e.touches[0];
-
-  ctx.globalCompositeOperation = "destination-out";
-  ctx.lineWidth = eraseSize * 2;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  ctx.beginPath();
-  ctx.moveTo(t.clientX, t.clientY);
-}
 
 function drawTouch(e){
   if (!drawing) return;
