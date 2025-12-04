@@ -1,51 +1,74 @@
-html, body{
+* {
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background: #000;
-  font-family: "Gothic A1", sans-serif;
-  font-weight: 400;
+  box-sizing: border-box;
 }
 
-#container{
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-}
-
-#bg{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-#mask{
-  position: absolute;
+header {
+  position: fixed;
   top: 0;
   left: 0;
-}
-
-#toolbox{
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 8px 10px;
-  border-radius: 8px;
+  width: 100%;
+  height: 60px;
+  background: #fff;
   display: flex;
-  gap: 6px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 9999;
+  border-bottom: 1px solid #ddd;
 }
 
-.tool-btn{
-  padding: 6px 12px;
-  border: none;
-  background: #e5e5e5;
+.navbar-toggle {
   cursor: pointer;
-  border-radius: 5px;
-  font-family: "Gothic A1", sans-serif;
-  font-size: 14px;
+  width: 30px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 10001;
 }
 
-.tool-btn.active{
-  background: #bbb;
+.navbar-toggle span {
+  display: block;
+  height: 4px;
+  background: #000;
+  border-radius: 2px;
+}
+
+.navbar-menu {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background: #ffffff;
+  padding: 80px 20px;
+  transition: right 0.3s ease;
+  z-index: 10000;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+}
+
+.navbar-menu.active {
+  right: 0;
+}
+
+.navbar-menu ul {
+  list-style: none;
+}
+
+.navbar-menu li {
+  margin-bottom: 20px;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #333;
+}
+
+main {
+  padding-top: 60px;
+  position: relative;
+  z-index: 1;
 }
