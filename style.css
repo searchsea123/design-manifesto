@@ -3,7 +3,6 @@ html, body{
   padding: 0;
   overflow: hidden;
   background: #000;
-
   font-family: "Gothic A1", sans-serif;
   font-weight: 400;
 }
@@ -26,7 +25,6 @@ html, body{
   left: 0;
 }
 
-
 #toolbox{
   position: absolute;
   top: 10px;
@@ -44,8 +42,6 @@ html, body{
   background: #e5e5e5;
   cursor: pointer;
   border-radius: 5px;
-
-
   font-family: "Gothic A1", sans-serif;
   font-size: 14px;
 }
